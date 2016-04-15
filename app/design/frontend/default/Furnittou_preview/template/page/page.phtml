@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html dir="ltr">
+<head>
+    
+    <script>
+    var themeHasJQuery = !!window.jQuery;
+</script>
+<?php $_helper = Mage::registry('templateHelper') ?>
+<script src="<?php
+    echo $this->getSkinUrl('jquery.js') . '?version=' . ($_helper ? $_helper->getThemeVersion() : '')
+?>"></script>
+<script>
+    window.designer = {};
+    window._$ = jQuery.noConflict(themeHasJQuery);
+</script>
+    <?php
+    $_helper = Mage::registry('templateHelper');
+    $_preview = Mage::app()->getRequest()->getParam('preview');
+    $_hasBaseCss = file_exists(Mage::getDesign()->getSkinBaseDir() . DS . 'bootstrap.min.css');
+    $_bootstrapCss = $this->getSkinUrl($_preview || !$_hasBaseCss ? 'bootstrap.css' : 'bootstrap.min.css');
+    $_bootstrapJs = $this->getSkinUrl('bootstrap.min.js');
+    $_params = '?version=' . ($_helper ? $_helper->getThemeVersion() : '');
+?>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="<?php echo $_bootstrapCss . $_params ?>" />
+<script src="<?php echo $_bootstrapJs . $_params ?>"></script>
+<link class="data-control-id-9" href='//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic|Comfortaa:300,regular,700&subset=latin' rel='stylesheet' type='text/css'>
+<?php $_helper = Mage::registry('templateHelper') ?>
+<script src="<?php
+    echo $this->getSkinUrl('CloudZoom.js') . '?version=' . ($_helper ? $_helper->getThemeVersion() : '')
+?>" type="text/javascript"></script>
+    
+    
+    <?php echo $this->getChildHtml("head") ?>
+    <?php
+        $_helper = Mage::registry('templateHelper');
+
+        $_preview = Mage::app()->getRequest()->getParam('preview');
+        $_baseCss = file_exists(Mage::getDesign()->getSkinBaseDir() . DS . 'style.min.css') ? 'style.min.css' : 'style.css';
+
+        $_style = $this->getSkinUrl($_preview ? 'style.preview.php' : $_baseCss);
+        $_script = $this->getSkinUrl('script.js');
+
+        $_version = '?version=' . ($_helper ? $_helper->getThemeVersion() : '');
+        $_style .= $_version;
+        $_script .= $_version;
+
+        if ($_preview) {
+            $_style .= '&template=' . ($_helper ? $_helper->getThemeName() : '');
+        }
+    ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $_style ?>" />
+    <script src="<?php echo $_script ?>"></script>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('style.ie.css') ?>" />
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('script.ie.js') ?>"></script>
+    <![endif]-->
+</head>
+<body class="data-control-id-31 bootstrap bd-body-7 bd-pagebackground <?php echo $this->getBodyClass() ?>">
+    <?php echo $this->getChildHtml("after_body_start"); ?>
+    <header class="data-control-id-556009 bd-headerarea-1">
+        <div class="container data-control-id-556037 bd-containereffect-15"><div class="data-control-id-556035 bd-layoutbox-1 clearfix">
+    <div class="bd-container-inner">
+        <?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('cart/popup-link', 1)->toHtml() ?>
+<?php endif ?>
+	
+		<?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('currency', 1)->toHtml() ?>
+<?php endif ?>
+	
+		<?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('language', 1)->toHtml() ?>
+<?php endif ?>
+	
+		<div class="data-control-id-2444 bd-footerlinksmenu-1 hidden-sm hidden-xs">
+    <?php if ($links = Mage::app()->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml()): ?>
+    <div class="data-control-id-125393 bd-horizontalmenu-15 clearfix">
+        <?php $links = mb_convert_encoding($links, 'HTML-ENTITIES', 'UTF-8') ?>
+        <?php $_dom = new Zend_Dom_Query($links) ?>
+        <?php if (!$_dom->getDocumentErrors()): ?>
+            <div class="bd-container-inner">
+                <?php
+                    $_lists = $_dom->query('ul');
+                    $_menu = '';
+
+                    /** @var $_ul DomElement */
+                    foreach ($_lists as $_ul) {
+                        $_ul->setAttribute('class', 'data-control-id-125394 bd-menu-30 nav nav-pills nav-pills navbar-left');
+                        foreach ($_ul->getElementsByTagName('li') as $_li) {
+                            $_li->setAttribute('class', 'data-control-id-125395 bd-menuitem-33');
+                        }
+                        $_menu .= $_lists->getDocument()->saveXML($_ul, LIBXML_NOEMPTYTAG);
+                    }
+
+                    echo $_menu;
+                ?>
+            </div>
+        <?php endif ?>
+    </div>
+<?php endif ?>
+</div>
+    </div>
+</div>
+</div>
+	
+		<div class="container data-control-id-556212 bd-containereffect-16"><div class="data-control-id-556210 bd-layoutbox-4 clearfix">
+    <div class="bd-container-inner">
+        <div class="data-control-id-364541 bd-boxcontrol-1">
+    <div class="bd-container-inner">
+        <div class="bd-container-inner-wrapper">
+            <?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php
+        echo $_helper->createTemplate('headline', '1')
+            ->setLogoAlt(Mage::app()->getLayout()->getBlock('header')->getLogoAlt())
+            ->toHtml()
+    ?>
+<?php endif ?>
+	
+		<?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('slogan', 1)
+        ->setWelcome(Mage::app()->getLayout()->getBlock('header')->getWelcome())
+        ->toHtml() ?>
+<?php endif ?>
+        </div>
+    </div>
+</div>
+	
+		<?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('search-form', 3)->toHtml() ?>
+<?php endif ?>
+	
+		<?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('nav/hmenu', '1')->toHtml() ?>
+<?php endif ?>
+    </div>
+</div>
+</div>
+</header>
+	
+		<?php
+    if ($_crumbs = Mage::app()->getLayout()->getBlock('breadcrumbs')) {
+        echo $_crumbs->setControlId(1)->toHtml();
+    }
+?>
+	
+		<div class="container data-control-id-364 bd-containereffect-8">
+<div class="data-control-id-564408 bd-stretchtobottom-1 bd-stretch-to-bottom" data-control-selector=".bd-contentlayout-7">
+<div class="bd-sheetstyles bd-contentlayout-7 data-control-id-366">
+    <div class="bd-container-inner">
+
+        
+
+                    <div class="data-control-id-516031 bd-layoutitemsbox-9 bd-flex-wide">
+    <div class="data-control-id-857 bd-content-5">
+    <div class="bd-container-inner">
+        
+        <div id="ajax-loader"><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></div>
+        <?php if ($_globalMessages = Mage::app()->getLayout()->getBlock('global_messages')): ?>
+            <?php echo $_globalMessages->toHtml() ?>
+        <?php endif ?>
+        <?php echo Mage::app()->getLayout()->getBlock('content')->toHtml() ?>
+    </div>
+</div>
+</div>
+
+        
+
+    </div>
+</div></div>
+</div>
+	
+		<div data-smooth-scroll data-animation-time="250" class="data-control-id-303078 bd-smoothscroll-3"><a href="#" class="data-control-id-2459 bd-backtotop-1">
+    <span class="data-control-id-2458 bd-icon-58"></span>
+</a></div>
+	
+		<footer class="data-control-id-558154 bd-footerarea-1">
+        <div class="data-control-id-2448 bd-layoutbox-3 clearfix">
+    <div class="bd-container-inner">
+        <div class="data-control-id-7746 bd-layoutcontainer-30">
+    <div class="bd-container-inner">
+        <div class="container-fluid">
+            <div class="row
+                
+                ">
+                <div class="data-control-id-7749 bd-layoutcolumn-col-59 
+ col-md-24">
+    <div class="bd-layoutcolumn-59"><div class="bd-vertical-align-wrapper"><div class="data-control-id-2425 bd-sitemapmenu-1" data-responsive-menu="true">
+    
+    <div class="data-control-id-302926 bd-responsivemenu-18 collapse-button">
+    <div class="bd-container-inner">
+        <div class="data-control-id-489991 bd-menuitem-21">
+            <a  data-toggle="collapse"
+                data-target=".bd-sitemapmenu-1 .collapse-button + .navbar-collapse"
+                href="#" onclick="return false;">
+                    <span></span>
+            </a>
+        </div>
+    </div>
+</div>
+    <div class="navbar-collapse collapse">
+        <?php if (($links = Mage::app()->getLayout()->getBlock('footer_links')) && ($linksContent = $links->toHtml())): ?>
+    <div class="data-control-id-125315 bd-horizontalmenu-1 clearfix">
+        <?php $linksContent = mb_convert_encoding($linksContent, 'HTML-ENTITIES', 'UTF-8') ?>
+        <?php $_dom = new Zend_Dom_Query($linksContent) ?>
+        <?php if (!$_dom->getDocumentErrors()): ?>
+            <div class="bd-container-inner">
+                <?php
+                    $_lists = $_dom->query('ul');
+                    $_menu = '';
+
+                    /** @var $_ul DomElement */
+                    foreach ($_lists as $_ul) {
+                        $_ul->setAttribute('class', 'data-control-id-125316 bd-menu-1 nav nav-pills navbar-left');
+                        foreach ($_ul->getElementsByTagName('li') as $_li) {
+                            $_li->setAttribute('class', 'data-control-id-125317 bd-menuitem-1');
+                        }
+                        $_menu .= $_lists->getDocument()->saveXML($_ul, LIBXML_NOEMPTYTAG);
+                    }
+
+                    echo $_menu;
+                ?>
+            </div>
+        <?php endif ?>
+    </div>
+<?php endif ?>
+        
+    </div>
+</div></div></div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+	
+		<?php if ($_helper = Mage::registry('templateHelper')): ?>
+    <?php echo $_helper->createTemplate('pagefooter', 1)->toHtml() ?>
+<?php endif ?>
+</footer>
+    <?php if ($this->getChild('global_cookie_notice')): ?>
+        <?php echo $this->getChildHtml('global_cookie_notice') ?>
+    <?php endif ?>
+    <?php echo $this->getChildHtml("before_body_end"); ?>
+</body>
+</html>
