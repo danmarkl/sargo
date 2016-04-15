@@ -1,0 +1,12 @@
+Thumbs.db
+var/
+media/
+skin/frontend/base/default/images
+skin/frontend/default/default/images
+skin/frontend/default/Furnittou/images
+skin/frontend/default/Furnittou_preview/images
+skin/frontend/fed/default/images
+skin/frontend/rwd/default/images
+*.cache
+*.bak
+*.sql
